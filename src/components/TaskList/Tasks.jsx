@@ -30,7 +30,7 @@ const Tasks = ({ data }) => {
   };
 
   return (
-    <div className="min-h-[210px] relative w-full lg:w-[45%] xl:w-[460px] flex-shrink-0 bg-neutral-800 rounded-xl px-[30px] sm:px-[50px] py-[25px] sm:py-[35px]">
+    <div className="min-h-[210px] break-inside-avoid relative w-full flex-shrink-0 bg-neutral-800 rounded-xl px-[30px] sm:px-[50px] py-[25px] sm:py-[35px] mb-[20px]">
       <div>
         <div className="w-full flex items-center justify-between text-[16px]">
           <div className="bg-gray-700 px-[10px] py-[2px] rounded-md">

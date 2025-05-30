@@ -6,7 +6,7 @@ const TaskList = () => {
   const {tasks} = useSelector(state => state.userSlice.currentUser)
 
   return (
-    <div className='taskList w-full py-[60px] h-[45%] flex gap-[20px] flex-wrap px-[30px] items-start justify-center md:justify-between text-white font-semibold mt-[20px]'>
+    <div className='taskList w-full py-[60px] columns-1 gap-[20px] lg:columns-2 xl:columns-3 px-[30px] text-white font-semibold mt-[20px]'>
       {
         tasks.map((item , index) => {
           return(
