@@ -6,36 +6,46 @@ import { IoEyeOff } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { addCurrentUser, setLoadingOn } from "../../userSlice/userSlice";
 
+import { signInWithEmailAndPassword } from "firebase/auth";
+
+import {auth, db} from '../../firebase-config'
+import { doc, getDoc } from "firebase/firestore";
 
 const Login = () => {
   const [mail, setMail] = useState("");
   const [pass, setPass] = useState("");
-  const {admin, employees, currentUser, role, isLoading} = useSelector(state => state.userSlice)
-  const dispatch = useDispatch()
+  const [isVisible, setIsVisible] = useState(false);
 
-  const submitHandler = (e) => {
+  const { admin, employees, currentUser, role, isLoading } = useSelector(
+    (state) => state.userSlice
+  );
+  const dispatch = useDispatch();
+
+
+  const fetchUserData = async () => {
+    auth.onAuthStateChanged(async (user) => {
+      if(user){
+        const docRef = doc(db, "Users", user.uid)
+        const docSnap = await getDoc(docRef)
+        if(docSnap.exists()){
+          dispatch(addCurrentUser({currentUser: docSnap.data(), role: docSnap.data().role}))
+        }
+      }
+    })
+  }
+
+  const submitHandler = async (e) => {
     e.preventDefault();
-    dispatch(setLoadingOn())
-    admin.map((user) => {
-      if(user.email === mail && user.password === pass){
-        dispatch(addCurrentUser({currentUser: user, role: 'admin'}))
-      }
-    })
-    
-    employees.map((user) => {
-      if(user.email === mail && user.password === pass){
-        dispatch(addCurrentUser({currentUser: user, role: 'employee'}))
-      }
-    })
 
-    if(!currentUser && !role){
-      dispatch(addCurrentUser({currentUser: '', role: ''}))
+    try{
+      await signInWithEmailAndPassword(auth, mail, pass);
+      fetchUserData()
+    }catch(error){
+      console.log(error);
     }
     setMail("");
     setPass("");
   };
-
-  const [isVisible, setIsVisible] = useState(false)
 
   return (
     <>
@@ -65,16 +75,19 @@ const Login = () => {
                 onChange={(e) => {
                   setPass(e.target.value);
                 }}
-                type={isVisible ? 'text' : 'password'}
+                type={isVisible ? "text" : "password"}
                 required
                 placeholder="Enter your password"
                 className="bg-transparent border-b-[2px] w-[240px] sm:w-[280px] py-[8px] outline-none border-gray-500 placeholder:text-gray-400"
               />
               <span
-              onClick={() => {
-                setIsVisible(!isVisible)
-              }}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-[20px] text-[#d5d5d5] cursor-pointer">{isVisible ? <IoEyeOff /> : <IoEyeSharp />}</span>
+                onClick={() => {
+                  setIsVisible(!isVisible);
+                }}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-[20px] text-[#d5d5d5] cursor-pointer"
+              >
+                {isVisible ? <IoEyeOff /> : <IoEyeSharp />}
+              </span>
             </div>
             <button
               type="submit"
@@ -82,7 +95,12 @@ const Login = () => {
             >
               Log in
             </button>
-            <h1 className='text-center mt-[5px]'>Don't have an account? <br /><span className='underline cursor-pointer font-medium text-[#D5A121]'>Sign Up</span></h1>
+            <h1 className="text-center mt-[5px]">
+              Don't have an account? <br />
+              <span className="underline cursor-pointer font-medium text-[#D5A121]">
+                Sign Up
+              </span>
+            </h1>
           </form>
         </div>
       </div>

@@ -8,6 +8,7 @@ const userSlice = createSlice({
     employees: [],
     currentUser: { id: "", email: "", password: "", firstName: "" },
     role: "",
+    toShowTasks: [],
   },
   reducers: {
     addUsers: (state, action) => {
@@ -27,14 +28,37 @@ const userSlice = createSlice({
       state.currentUser = { id: "", email: "", password: "", firstName: "" };
       state.role = "";
     },
-    handleAcceptTask: (state, action) => {
+    handleTaskCondition: (state, action) => {
+      state.toShowTasks = state.toShowTasks.map((task) =>
+        task.id === action.payload.id ? action.payload : task
+      );
       state.currentUser.tasks = state.currentUser.tasks.map((task) =>
         task.id === action.payload.id ? action.payload : task
       );
     },
     handleDeleteTask: (state, action) => {
-      state.currentUser.tasks = state.currentUser.tasks.filter(task => task.id != action.payload)
-    }
+      state.currentUser.tasks = state.currentUser.tasks.filter(
+        (task) => task.id != action.payload
+      );
+      state.toShowTasks = state.toShowTasks.filter(
+        (task) => task.id != action.payload
+      );
+    },
+    handleToShowTasks: (state, action) => {
+      state.toShowTasks = action.payload;
+    },
+    addTaskFromAdmin: (state, action) => {
+      const { asignTo, task } = action.payload;
+
+      state.employees.forEach((employee) => {
+        if (employee.firstName === asignTo) {
+          if (!employee.tasks) {
+            employee.tasks = [];
+          }
+          employee.tasks.push(task);
+        }
+      });
+    },
   },
 });
 
@@ -43,8 +67,10 @@ export const {
   addCurrentUser,
   setLoadingOn,
   handleLogOutSet,
-  handleAcceptTask,
-  handleDeleteTask
+  handleTaskCondition,
+  handleDeleteTask,
+  handleToShowTasks,
+  addTaskFromAdmin,
 } = userSlice.actions;
 
 export default userSlice.reducer;

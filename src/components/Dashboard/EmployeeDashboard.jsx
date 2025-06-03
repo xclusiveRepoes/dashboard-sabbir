@@ -1,18 +1,43 @@
-import React from 'react'
-import Header from '../other/Header'
-import TaskListNumber from '../other/TaskListNumber'
-import TaskList from '../TaskList/TaskList'
+import React, { useEffect, useState } from "react";
+import Header from "../other/Header";
+import TaskListNumber from "../other/TaskListNumber";
+import TaskList from "../TaskList/TaskList";
+import { useDispatch, useSelector } from "react-redux";
+import { handleToShowTasks } from "../../userSlice/userSlice";
 
 const EmployeeDashboard = () => {
-  return (
-    <div className='w-full min-h-screen lg:h-screen bg-[#1c1c1c] sm:px-[60px] overflow-x-hidden'>
-        <div className='w-full  px-[30px]'>
-          <Header />
-        </div>
-        <TaskListNumber />
-        <TaskList />
-    </div>
-  )
-}
+  const { tasks } = useSelector((state) => state.userSlice.currentUser);
 
-export default EmployeeDashboard
+  const [typeOfTask, setTypeOfTask] = useState("");
+  const { toShowTasks } = useSelector((state) => state.userSlice);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(handleToShowTasks(tasks));
+  }, []);
+
+  return (
+    <div className="w-full min-h-screen lg:h-screen bg-[#1c1c1c] sm:px-[60px] overflow-x-hidden">
+      <div className="w-full  px-[30px]">
+        <Header />
+      </div>
+      <TaskListNumber
+        typeOfTask={typeOfTask}
+        setTypeOfTask={setTypeOfTask}
+      />
+      <TaskList typeOfTask={typeOfTask} />
+      {toShowTasks?.length === 0 && (
+        <div className="text-center w-full text-[19px] text-gray-200 md:text-[21px] xl:text-[24px]">
+          {toShowTasks.length === 0 && (
+            <h1 className="text-start w-full flex items-center justify-center">
+              No {typeOfTask} to Show{" "}
+            </h1>
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default EmployeeDashboard;
