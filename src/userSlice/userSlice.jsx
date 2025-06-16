@@ -6,9 +6,11 @@ const userSlice = createSlice({
     isLoading: true,
     admin: [],
     employees: [],
-    currentUser: { id: "", email: "", password: "", firstName: "" },
+    currentUser: { uid: "", email: "", password: "", firstName: "" },
     role: "",
     toShowTasks: [],
+    isLight: false,
+    isSignUpShow: false
   },
   reducers: {
     addUsers: (state, action) => {
@@ -24,8 +26,11 @@ const userSlice = createSlice({
     setLoadingOn: (state) => {
       state.isLoading = true;
     },
+    setLoadingOff: (state) => {
+      state.isLoading = false;
+    },
     handleLogOutSet: (state) => {
-      state.currentUser = { id: "", email: "", password: "", firstName: "" };
+      state.currentUser = { uid: "", email: "", password: "", firstName: "" };
       state.role = "";
     },
     handleTaskCondition: (state, action) => {
@@ -59,6 +64,12 @@ const userSlice = createSlice({
         }
       });
     },
+    setIsLightHandle: (state, action) => {
+      state.isLight = action.payload
+    }, 
+    setSignUpShow: (state, action) => {
+      state.isSignUpShow = action.payload
+    }
   },
 });
 
@@ -71,6 +82,9 @@ export const {
   handleDeleteTask,
   handleToShowTasks,
   addTaskFromAdmin,
+  setLoadingOff,
+  setIsLightHandle,
+  setSignUpShow
 } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -18,7 +18,7 @@ const EmployeeDashboard = () => {
   }, []);
 
   return (
-    <div className="w-full min-h-screen lg:h-screen bg-[#1c1c1c] sm:px-[60px] overflow-x-hidden">
+    <div className="w-full min-h-screen lg:h-screen bg-gray-300 dark:bg-[#1c1c1c] sm:px-[60px] overflow-x-hidden">
       <div className="w-full  px-[30px]">
         <Header />
       </div>
@@ -30,7 +30,7 @@ const EmployeeDashboard = () => {
       {toShowTasks?.length === 0 && (
         <div className="text-center w-full text-[19px] text-gray-200 md:text-[21px] xl:text-[24px]">
           {toShowTasks.length === 0 && (
-            <h1 className="text-start w-full flex items-center justify-center">
+            <h1 className="text-start w-full flex items-center text-gray-800 dark:text-white justify-center">
               No {typeOfTask} to Show{" "}
             </h1>
           )}

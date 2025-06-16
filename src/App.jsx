@@ -7,11 +7,23 @@ import AdminDashboard from "./components/Dashboard/AdminDashboard";
 import EmployeeDashboard from "./components/Dashboard/EmployeeDashboard";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { auth, db } from "./firebase-config";
-import { addCurrentUser, addUsers } from "./userSlice/userSlice";
-import UploadUser from './UploadUsers'
+import { addCurrentUser, addUsers, setLoadingOff } from "./userSlice/userSlice";
+import UploadUser from "./UploadUsers";
+import Loading from "./components/Loading";
+import SignUp from "./components/Auth/SignUp";
 
 const App = () => {
-  const { currentUser, role } = useSelector((state) => state.userSlice);
+  const { currentUser, role, isLoading, isLight, isSignUpShow } = useSelector(
+    (state) => state.userSlice
+  );
+
+  useEffect(() => {
+    if(isLight){
+      document.querySelector('html').classList.remove('dark')
+    }else{
+      document.querySelector('html').classList.add('dark')
+    }
+  }, [isLight])
 
   const dispatch = useDispatch();
 
@@ -28,6 +40,8 @@ const App = () => {
             })
           );
         }
+      } else {
+        dispatch(setLoadingOff());
       }
     });
   };
@@ -57,13 +71,15 @@ const App = () => {
     if (role === "admin") {
       fetchAllUsersData();
     }
-  }, []);
+  }, [role]);
 
   return (
     <>
-      {!currentUser.uid && <Login />}
+      {!currentUser.uid && !isSignUpShow && <Login />}
       {role && role === "admin" && <AdminDashboard />}
       {role && role === "employee" && <EmployeeDashboard />}
+      {isLoading && <Loading />}
+      {isSignUpShow && <SignUp />}
     </>
   );
 };
