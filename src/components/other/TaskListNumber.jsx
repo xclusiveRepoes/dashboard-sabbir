@@ -61,7 +61,7 @@ const TaskListNumber = ({ setTypeOfTask, typeOfTask }) => {
 
   
   return (
-    <div className="w-full flex justify-center sm:justify-between mt-[20px] gap-[10px] lg:gap-[20px] flex-wrap lg:flex-nowrap px-[30px]">
+    <div className="w-full flex justify-center sm:justify-between mt-[20px] gap-[10px] lg:gap-[20px] flex-wrap lg:flex-nowrap px-[10px] md:px-[30px]">
       {tasksCount.map((item, index) => {
         const count =
           item.name === "New task"

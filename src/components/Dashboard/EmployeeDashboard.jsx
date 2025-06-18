@@ -19,7 +19,7 @@ const EmployeeDashboard = () => {
 
   return (
     <div className="w-full min-h-screen lg:h-screen bg-gray-300 dark:bg-[#1c1c1c] sm:px-[60px] overflow-x-hidden">
-      <div className="w-full  px-[30px]">
+      <div className="w-full md:px-[30px] px-[10px]">
         <Header />
       </div>
       <TaskListNumber

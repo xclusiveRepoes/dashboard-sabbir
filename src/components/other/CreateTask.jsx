@@ -9,6 +9,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import { db } from "../../firebase-config";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import { toast } from "react-toastify";
 
 const CreateTask = () => {
   const { employees } = useSelector((state) => state.userSlice);
@@ -42,6 +43,7 @@ const CreateTask = () => {
 
     if (!user) {
       dispatch(setLoadingOff());
+      toast.error('User not found!')
       console.log("User not found in employee list");
       return;
     }
@@ -57,8 +59,16 @@ const CreateTask = () => {
         const existingTasks = userDoc.data().tasks || [];
         updatedTasks = [...existingTasks, task];
         await updateDoc(userRef, { tasks: updatedTasks });
+        toast.success("Successfully added task!", {
+          position: "top-center",
+          autoClose: 3000,
+        });
       } else {
         updatedTasks = [task];
+        toast.error("Failed to add task!", {
+          position: "top-center",
+          autoClose: 3000,
+        });
         await setDoc(userRef, {
           uid: user.uid,
           email: user.email || "",
@@ -71,6 +81,10 @@ const CreateTask = () => {
     } catch (error) {
       dispatch(setLoadingOff());
       console.log("Error updating/creating user document:", error);
+      toast.error("Failed to add task!", {
+        position: "top-center",
+        autoClose: 3000,
+      });
     }
   };
 
@@ -89,6 +103,7 @@ const CreateTask = () => {
       completed: false,
       id: uuidv4(),
     });
+    setAsignTo('')
   };
 
   return (

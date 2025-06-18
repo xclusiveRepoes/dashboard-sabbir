@@ -3,8 +3,7 @@ import UserTaskCounts from "./UserTaskCounts"
 
 const AllTasks = () => {
   const { employees } = useSelector(state => state.userSlice)
-  console.log(employees);
-
+  
   return (
     <section className="w-full px-4 md:px-16 py-4 md:py-10 text-sm md:text-base">
       <div className="w-full bg-[#9ca3af8e] dark:bg-[#1c1c1c] p-4 rounded-lg space-y-2 dark:text-white">
