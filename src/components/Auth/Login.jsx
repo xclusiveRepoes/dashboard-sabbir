@@ -42,6 +42,7 @@ const Login = () => {
       await signInWithEmailAndPassword(auth, mail, pass);
       fetchUserData()
     }catch(error){
+      dispatch(setLoadingOff())
       console.log(error);
     }
     setMail("");

@@ -128,7 +128,7 @@ const Tasks = ({ data }) => {
               </span>
             )}
             {data.active && (
-              <div className="flex items-center gap-1 text-green-300 font-medium">
+              <div className="flex items-center gap-1 text-green-400 font-medium">
                 <div className="w-[12px] h-[12px] bg-green-400 rounded-full animate-pulse"></div>
                 <span className="text-sm">Active</span>
               </div>
