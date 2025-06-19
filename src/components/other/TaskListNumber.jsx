@@ -10,7 +10,9 @@ const TaskListNumber = ({ setTypeOfTask, typeOfTask }) => {
     completedTask: 0,
   });
 
-  const { tasks, toShowTasks } = useSelector((state) => state.userSlice.currentUser);
+  const { tasks } = useSelector(
+    (state) => state.userSlice.currentUser
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -59,7 +61,11 @@ const TaskListNumber = ({ setTypeOfTask, typeOfTask }) => {
     dispatch(handleToShowTasks(filtered));
   };
 
-  
+  useEffect(() => {
+    const filtered = getTasksByType(typeOfTask)
+    dispatch(handleToShowTasks(filtered));
+  }, [tasks]);
+
   return (
     <div className="w-full flex justify-center sm:justify-between mt-[20px] gap-[10px] lg:gap-[20px] flex-wrap lg:flex-nowrap px-[10px] md:px-[30px]">
       {tasksCount.map((item, index) => {

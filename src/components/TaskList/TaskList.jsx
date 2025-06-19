@@ -1,18 +1,15 @@
 import { useSelector } from 'react-redux'
-
 import Tasks from './Tasks'
+const TaskList = () => {
+  const { toShowTasks } = useSelector(state => state.userSlice)
 
-const TaskList = () => { 
-  const {toShowTasks} = useSelector(state => state.userSlice)
   return (
-    <div className='taskList w-full py-[60px] columns-1 gap-[20px] lg:columns-2 xl:columns-3 px-[10px] md:px-[30px] text-white font-semibold mt-[20px]'>
-      {
-        toShowTasks.map((item , index) => {
-          return(
-            <Tasks data={item} key={index} />
-          )
-        })
-      }
+    <div className="taskList w-full py-[60px] px-[10px] md:px-[30px] mt-[20px] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-[30px]">
+      {toShowTasks.map((item, index) => (
+        <div key={index} >
+          <Tasks data={item} />
+        </div>
+      ))}
     </div>
   )
 }

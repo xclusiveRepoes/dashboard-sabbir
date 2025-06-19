@@ -8,7 +8,7 @@ import { handleToShowTasks } from "../../userSlice/userSlice";
 const EmployeeDashboard = () => {
   const { tasks } = useSelector((state) => state.userSlice.currentUser);
 
-  const [typeOfTask, setTypeOfTask] = useState("");
+  const [typeOfTask, setTypeOfTask] = useState("New task");
   const { toShowTasks } = useSelector((state) => state.userSlice);
 
   const dispatch = useDispatch();

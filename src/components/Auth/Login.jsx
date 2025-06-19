@@ -52,13 +52,13 @@ const Login = () => {
   return (
     <>
       <div className="w-full h-screen flex flex-col items-center justify-center dark:bg-[#1C1C1C] bg-gray-300 text-gray-800 dark:text-[white]">
-        <div className="px-[30px] sm:px-[50px] py-[30px] sm:py-[60px] shadow-md dark:border-[2px] dark:border-[#797979] rounded-xl flex flex-col items-center justify-center bg-[#6d6d6d2b] ">
+        <div className="px-[20px] sm:px-[40px] py-[30px] sm:py-[60px] shadow-md rounded-xl flex flex-col items-center justify-center bg-[#6d6d6d2b] ">
           <form
             onSubmit={(e) => {
               submitHandler(e);
             }}
             action=""
-            className="w-fit flex flex-col items-center gap-[15px] text-[15px] md:text-[18px]"
+            className="w-fit flex flex-col items-center gap-[15px] text-[15px] md:text-[16px]"
           >
             <h1 className="mb-[20px]">Log in your account</h1>
             <input
@@ -69,7 +69,7 @@ const Login = () => {
               type="email"
               required
               placeholder="Enter your email"
-              className="bg-transparent border-b-[2px] w-[240px] sm:w-[280px] py-[8px] outline-none border-gray-700 dark:border-gray-500 placeholder:text-gray-600 dark:placeholder:text-gray-400"
+              className="bg-transparent border-b-[2px] w-[240px] sm:w-[250px] py-[8px] outline-none border-gray-700 dark:border-gray-500 placeholder:text-gray-600 dark:placeholder:text-gray-400"
             />
             <div className="relative w-fit h-fit">
               <input
@@ -80,7 +80,7 @@ const Login = () => {
                 type={isVisible ? "text" : "password"}
                 required
                 placeholder="Enter your password"
-                className="bg-transparent border-b-[2px] w-[240px] sm:w-[280px] py-[8px] outline-none border-gray-700 dark:border-gray-500 placeholder:text-gray-600 dark:placeholder:text-gray-400"
+                className="bg-transparent border-b-[2px] w-[240px] sm:w-[250px] py-[8px] outline-none border-gray-700 dark:border-gray-500 placeholder:text-gray-600 dark:placeholder:text-gray-400"
               />
               <span
                 onClick={() => {
@@ -93,7 +93,7 @@ const Login = () => {
             </div>
             <button
               type="submit"
-              className="w-[240px] sm:w-[280px] dark:bg-[#555555a2] bg-gray-500 dark:hover:bg-[#55555579] dark:text-[#D5A121] text-[#ffb700]  hover:drop-shadow-xl transition-colors duration-300 rounded-md py-[8px]"
+              className="w-[240px] sm:w-[250px] dark:bg-[#555555a2] bg-gray-500 dark:hover:bg-[#55555579] dark:text-[#D5A121] text-[#ffb700]  hover:drop-shadow-xl transition-colors duration-300 rounded-md py-[8px]"
             >
               Log in
             </button>

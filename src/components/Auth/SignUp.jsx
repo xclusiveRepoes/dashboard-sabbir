@@ -55,10 +55,10 @@ const SignUp = () => {
   return (
     <div className="w-full h-screen fixed top-0 left-0 items-center justify-center flex">
       <div className="w-full h-screen flex flex-col items-center justify-center dark:bg-[#1C1C1C] bg-gray-300 text-gray-800 dark:text-white">
-        <div className="px-[30px] sm:px-[50px] py-[30px] sm:py-[60px] shadow-md dark:border-[2px] dark:border-[#797979] rounded-xl flex flex-col items-center justify-center bg-[#6d6d6d2b]">
+        <div className="px-[30px] sm:px-[40px] py-[30px] sm:py-[60px] shadow-md flex flex-col rounded-xl items-center justify-center bg-[#6d6d6d2b]">
           <form
             onSubmit={handleSubmit}
-            className="w-fit flex flex-col items-center gap-[15px] text-[15px] md:text-[18px]"
+            className="w-fit flex flex-col items-center gap-[15px] text-[15px] md:text-[16px]"
           >
             <h1 className="mb-[20px]">Create Your Account Here</h1>
             <input
@@ -69,7 +69,7 @@ const SignUp = () => {
               type="text"
               required
               placeholder="Enter your first name"
-              className="bg-transparent border-b-[2px] w-[240px] sm:w-[280px] py-[8px] outline-none border-gray-700 dark:border-gray-500 placeholder:text-gray-600 dark:placeholder:text-gray-400 capitalize"
+              className="bg-transparent border-b-[2px] w-[240px] sm:w-[250px] py-[8px] outline-none border-gray-700 dark:border-gray-500 placeholder:text-gray-600 dark:placeholder:text-gray-400 capitalize"
             />
             <input
               type="email"
@@ -79,7 +79,7 @@ const SignUp = () => {
               }
               required
               placeholder="Enter your email"
-              className="bg-transparent border-b-[2px] w-[240px] sm:w-[280px] py-[8px] outline-none border-gray-700 dark:border-gray-500 placeholder:text-gray-600 dark:placeholder:text-gray-400"
+              className="bg-transparent border-b-[2px] w-[240px] sm:w-[250px] py-[8px] outline-none border-gray-700 dark:border-gray-500 placeholder:text-gray-600 dark:placeholder:text-gray-400"
             />
             <div className="relative w-fit h-fit">
               <input
@@ -90,7 +90,7 @@ const SignUp = () => {
                 type={isVisible ? "text" : "password"}
                 required
                 placeholder="Enter your password"
-                className="bg-transparent border-b-[2px] w-[240px] sm:w-[280px] py-[8px] outline-none border-gray-700 dark:border-gray-500 placeholder:text-gray-600 dark:placeholder:text-gray-400"
+                className="bg-transparent border-b-[2px] w-[240px] sm:w-[250px] py-[8px] outline-none border-gray-700 dark:border-gray-500 placeholder:text-gray-600 dark:placeholder:text-gray-400"
               />
               <span
                 onClick={() => setIsVisible(!isVisible)}
@@ -101,7 +101,7 @@ const SignUp = () => {
             </div>
             <button
               type="submit"
-              className="w-[240px] sm:w-[280px] dark:bg-[#555555a2] bg-gray-500 dark:hover:bg-[#55555579] dark:text-[#D5A121] text-[#ffb700] hover:drop-shadow-xl transition-colors duration-300 rounded-md py-[8px]"
+              className="w-[240px] sm:w-[250px] dark:bg-[#555555a2] bg-gray-500 dark:hover:bg-[#55555579] dark:text-[#D5A121] text-[#ffb700] hover:drop-shadow-xl transition-colors duration-300 rounded-md py-[8px]"
             >
               Sign Up
             </button>
