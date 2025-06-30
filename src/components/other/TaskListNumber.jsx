@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { handleToShowTasks } from "../../userSlice/userSlice";
+import { setTypeOfTask } from "../../userSlice/userSlice";
 
-const TaskListNumber = ({ setTypeOfTask, typeOfTask }) => {
+const TaskListNumber = () => {
+  const {typeOfTask} = useSelector(state => state.userSlice)
   const [taskCount, setTaskCount] = useState({
     activeTaskNumber: 0,
     newTask: 0,
@@ -38,33 +39,11 @@ const TaskListNumber = ({ setTypeOfTask, typeOfTask }) => {
     { name: "Failed task", color: "bg-red-500" },
   ];
 
-  const getTasksByType = (name) => {
-    switch (name) {
-      case "Failed task":
-        return tasks.filter((task) => task.failed);
-      case "Active Task":
-        return tasks.filter((task) => task.active);
-      case "Completed task":
-        return tasks.filter((task) => task.completed);
-      case "New task":
-        return tasks.filter(
-          (task) => !task.failed && !task.completed && !task.active
-        );
-      default:
-        return [];
-    }
-  };
 
   const handleClick = (item) => {
-    const filtered = getTasksByType(item.name);
-    setTypeOfTask(item.name);
-    dispatch(handleToShowTasks(filtered));
+    dispatch(setTypeOfTask(item.name))
   };
 
-  useEffect(() => {
-    const filtered = getTasksByType(typeOfTask)
-    dispatch(handleToShowTasks(filtered));
-  }, [tasks]);
 
   return (
     <div className="w-full flex justify-center sm:justify-between mt-[20px] gap-[10px] lg:gap-[20px] flex-wrap lg:flex-nowrap px-[10px] md:px-[30px]">

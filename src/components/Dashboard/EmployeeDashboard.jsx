@@ -1,31 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Header from "../other/Header";
 import TaskListNumber from "../other/TaskListNumber";
 import TaskList from "../TaskList/TaskList";
-import { useDispatch, useSelector } from "react-redux";
-import { handleToShowTasks } from "../../userSlice/userSlice";
+import { useSelector } from "react-redux";
 
 const EmployeeDashboard = () => {
-  const { tasks } = useSelector((state) => state.userSlice.currentUser);
-
-  const [typeOfTask, setTypeOfTask] = useState("New task");
-  const { toShowTasks } = useSelector((state) => state.userSlice);
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(handleToShowTasks(tasks));
-  }, []);
+  const { toShowTasks, typeOfTask } = useSelector((state) => state.userSlice);
 
   return (
     <div className="w-full min-h-screen lg:h-screen bg-gray-300 dark:bg-[#1c1c1c] sm:px-[60px] md:px-[10px] lg:px-[60px] overflow-x-hidden">
       <div className="w-full md:px-[30px] px-[10px]">
         <Header />
       </div>
-      <TaskListNumber
-        typeOfTask={typeOfTask}
-        setTypeOfTask={setTypeOfTask}
-      />
+      <TaskListNumber />
       <TaskList />
       {toShowTasks?.length === 0 && (
         <div className="text-center w-full text-[19px] text-gray-200 md:text-[21px] xl:text-[24px]">
