@@ -6,7 +6,7 @@ const TaskList = () => {
 
   return (
     <div className="taskList w-full py-[60px] px-[10px] md:px-[30px] mt-[20px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-[30px]">
-      {toShowTasks.map((item) => (
+      {toShowTasks?.map((item) => (
         <Tasks key={item.id} data={item} />
       ))}
     </div>
