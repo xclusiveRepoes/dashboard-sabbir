@@ -11,7 +11,8 @@ const userSlice = createSlice({
     toShowTasks: [],
     isLight: false,
     isSignUpShow: false,
-    taskDets: ''
+    taskDets: '',
+    typeOfTask: 'New task'
   },
   reducers: {
     addUsers: (state, action) => {
@@ -73,6 +74,9 @@ const userSlice = createSlice({
     },
     setTaskDesc: (state, action) => {
       state.taskDets = action.payload
+    },
+    setTypeOfTask: (state, action) => {
+      state.typeOfTask = action.payload
     }
   },
 });
@@ -89,7 +93,8 @@ export const {
   setLoadingOff,
   setIsLightHandle,
   setSignUpShow,
-  setTaskDesc
+  setTaskDesc,
+  setTypeOfTask
 } = userSlice.actions;
 
 export default userSlice.reducer;
