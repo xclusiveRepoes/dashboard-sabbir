@@ -18,7 +18,7 @@ const EmployeeDashboard = () => {
   }, []);
 
   return (
-    <div className="w-full min-h-screen lg:h-screen bg-gray-300 dark:bg-[#1c1c1c] sm:px-[60px] overflow-x-hidden">
+    <div className="w-full min-h-screen lg:h-screen bg-gray-300 dark:bg-[#1c1c1c] sm:px-[60px] md:px-[10px] lg:px-[60px] overflow-x-hidden">
       <div className="w-full md:px-[30px] px-[10px]">
         <Header />
       </div>

@@ -8,23 +8,16 @@ import EmployeeDashboard from "./components/Dashboard/EmployeeDashboard";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 import { auth, db } from "./firebase-config";
 import { addCurrentUser, addUsers, setLoadingOff } from "./userSlice/userSlice";
-import UploadUser from "./UploadUsers";
 import Loading from "./components/Loading";
 import SignUp from "./components/Auth/SignUp";
 import { Bounce, ToastContainer } from "react-toastify";
 
 const App = () => {
-  const { currentUser, role, isLoading, isLight, isSignUpShow } = useSelector(
+  const { currentUser, role, isLoading, isSignUpShow } = useSelector(
     (state) => state.userSlice
   );
 
-  useEffect(() => {
-    if (isLight) {
-      document.querySelector("html").classList.remove("dark");
-    } else {
-      document.querySelector("html").classList.add("dark");
-    }
-  }, [isLight]);
+
 
   const dispatch = useDispatch();
 
@@ -81,19 +74,7 @@ const App = () => {
       {role && role === "employee" && <EmployeeDashboard />}
       {isLoading && <Loading />}
       {isSignUpShow && <SignUp />}
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick={false}
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-        transition={Bounce}
-      />
+
     </>
   );
 };

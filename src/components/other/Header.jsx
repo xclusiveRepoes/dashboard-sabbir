@@ -8,9 +8,11 @@ import { signOut } from "firebase/auth";
 import { IoSunny } from "react-icons/io5";
 import { HiMoon } from "react-icons/hi";
 import { FiLogOut } from "react-icons/fi";
+import { useNavigate } from "react-router";
 
 const Header = () => {
   const { currentUser } = useSelector((state) => state.userSlice);
+  const navigate = useNavigate()
 
   const dispatch = useDispatch();
 
@@ -28,6 +30,7 @@ const Header = () => {
 
   const handleLogOut = async (e) => {
     e.preventDefault();
+    navigate('/')
     try {
       await signOut(auth);
       dispatch(handleLogOutSet());

@@ -10,7 +10,8 @@ const userSlice = createSlice({
     role: "",
     toShowTasks: [],
     isLight: false,
-    isSignUpShow: false
+    isSignUpShow: false,
+    taskDets: ''
   },
   reducers: {
     addUsers: (state, action) => {
@@ -69,6 +70,9 @@ const userSlice = createSlice({
     }, 
     setSignUpShow: (state, action) => {
       state.isSignUpShow = action.payload
+    },
+    setTaskDesc: (state, action) => {
+      state.taskDets = action.payload
     }
   },
 });
@@ -84,7 +88,8 @@ export const {
   addTaskFromAdmin,
   setLoadingOff,
   setIsLightHandle,
-  setSignUpShow
+  setSignUpShow,
+  setTaskDesc
 } = userSlice.actions;
 
 export default userSlice.reducer;
