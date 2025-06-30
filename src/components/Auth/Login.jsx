@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from "react";
-import Header from "../other/Header";
-
 import { IoEyeSharp } from "react-icons/io5";
 import { IoEyeOff } from "react-icons/io5";
 import { useDispatch } from "react-redux";
-import { addCurrentUser, setLoadingOff, setLoadingOn, setSignUpShow } from "../../userSlice/userSlice";
+import {
+  addCurrentUser,
+  setLoadingOff,
+  setLoadingOn,
+  setSignUpShow,
+} from "../../userSlice/userSlice";
 
 import { signInWithEmailAndPassword } from "firebase/auth";
 
-import {auth, db} from '../../firebase-config'
+import { auth, db } from "../../firebase-config";
 import { doc, getDoc } from "firebase/firestore";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [mail, setMail] = useState("");
@@ -19,31 +23,37 @@ const Login = () => {
   const dispatch = useDispatch();
 
   const fetchUserData = async () => {
-    dispatch(setLoadingOn())
+    dispatch(setLoadingOn());
     auth.onAuthStateChanged(async (user) => {
-      if(user){
-        const docRef = doc(db, "Users", user.uid)
-        const docSnap = await getDoc(docRef)
-        if(docSnap.exists()){
-          dispatch(addCurrentUser({currentUser: docSnap.data(), role: docSnap.data().role}))
+      if (user) {
+        const docRef = doc(db, "Users", user.uid);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          dispatch(
+            addCurrentUser({
+              currentUser: docSnap.data(),
+              role: docSnap.data().role,
+            })
+          );
         }
+      } else {
+        dispatch(setLoadingOff());
       }
-      else{
-        dispatch(setLoadingOff())
-      }
-    })
-  }
+    });
+  };
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    dispatch(setLoadingOn())
+    dispatch(setLoadingOn());
 
-    try{
+    try {
       await signInWithEmailAndPassword(auth, mail, pass);
-      fetchUserData()
-    }catch(error){
-      dispatch(setLoadingOff())
+      toast.success("Logged in successfully!");
+      fetchUserData();
+    } catch (error) {
+      dispatch(setLoadingOff());
       console.log(error);
+      toast.error(`❌ User Not Found`);
     }
     setMail("");
     setPass("");
@@ -100,10 +110,11 @@ const Login = () => {
             <h1 className="text-center mt-[5px]">
               Don't have an account? <br />
               <span
-              onClick={() => {
-                dispatch(setSignUpShow(true))
-              }}
-              className="underline cursor-pointer font-medium dark:text-[#D5A121] text-[#ce9300]">
+                onClick={() => {
+                  dispatch(setSignUpShow(true));
+                }}
+                className="underline cursor-pointer font-medium dark:text-[#D5A121] text-[#ce9300]"
+              >
                 Sign Up
               </span>
             </h1>

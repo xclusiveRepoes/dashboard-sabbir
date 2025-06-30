@@ -11,8 +11,8 @@ const userSlice = createSlice({
     toShowTasks: [],
     isLight: false,
     isSignUpShow: false,
-    taskDets: '',
-    typeOfTask: 'New task'
+    taskDets: "",
+    typeOfTask: "New task",
   },
   reducers: {
     addUsers: (state, action) => {
@@ -67,17 +67,17 @@ const userSlice = createSlice({
       });
     },
     setIsLightHandle: (state, action) => {
-      state.isLight = action.payload
-    }, 
+      state.isLight = action.payload;
+    },
     setSignUpShow: (state, action) => {
-      state.isSignUpShow = action.payload
+      state.isSignUpShow = action.payload;
     },
     setTaskDesc: (state, action) => {
-      state.taskDets = action.payload
+      state.taskDets = action.payload;
     },
     setTypeOfTask: (state, action) => {
-      state.typeOfTask = action.payload
-    }
+      state.typeOfTask = action.payload;
+    },
   },
 });
 
@@ -94,7 +94,7 @@ export const {
   setIsLightHandle,
   setSignUpShow,
   setTaskDesc,
-  setTypeOfTask
+  setTypeOfTask,
 } = userSlice.actions;
 
 export default userSlice.reducer;

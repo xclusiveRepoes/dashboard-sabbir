@@ -13,6 +13,7 @@ import { toast } from "react-toastify";
 
 const CreateTask = () => {
   const { employees } = useSelector((state) => state.userSlice);
+
   const [task, setTask] = useState({
     taskTitle: "",
     taskDescription: "",
@@ -25,8 +26,8 @@ const CreateTask = () => {
   });
 
   const [asignTo, setAsignTo] = useState("");
-  const dispatch = useDispatch();
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const dispatch = useDispatch();
 
   const filteredSuggestions = useMemo(() => {
     const query = asignTo.toLowerCase();
@@ -36,15 +37,15 @@ const CreateTask = () => {
   }, [asignTo, employees]);
 
   const updateDatabase = async () => {
-    let user = employees.find(
+    const user = employees.find(
       (user) =>
         user.firstName.trim().toLowerCase() === asignTo.trim().toLowerCase()
     );
 
     if (!user) {
       dispatch(setLoadingOff());
-      toast.error('User not found!')
-      console.log("User not found in employee list");
+      toast.error("User not found!");
+      console.error("User not found in employee list");
       return;
     }
 
@@ -52,35 +53,32 @@ const CreateTask = () => {
 
     try {
       const userDoc = await getDoc(userRef);
-
-      let updatedTasks;
+      const existingTasks = userDoc.exists() ? userDoc.data().tasks || [] : [];
+      const updatedTasks = [...existingTasks, task];
 
       if (userDoc.exists()) {
-        const existingTasks = userDoc.data().tasks || [];
-        updatedTasks = [...existingTasks, task];
         await updateDoc(userRef, { tasks: updatedTasks });
-        toast.success("Successfully added task!", {
+        toast.success("Task successfully added to existing user!", {
           position: "top-center",
           autoClose: 3000,
         });
       } else {
-        updatedTasks = [task];
-        toast.error("Failed to add task!", {
-          position: "top-center",
-          autoClose: 3000,
-        });
         await setDoc(userRef, {
           uid: user.uid,
           email: user.email || "",
           firstName: user.firstName || asignTo,
           tasks: updatedTasks,
         });
+        toast.success("New user document created and task added!", {
+          position: "top-center",
+          autoClose: 3000,
+        });
       }
 
       dispatch(setLoadingOff());
     } catch (error) {
       dispatch(setLoadingOff());
-      console.log("Error updating/creating user document:", error);
+      console.error("Error updating/creating user document:", error);
       toast.error("Failed to add task!", {
         position: "top-center",
         autoClose: 3000,
@@ -93,6 +91,8 @@ const CreateTask = () => {
     dispatch(setLoadingOn());
     dispatch(addTaskFromAdmin({ asignTo, task }));
     updateDatabase();
+
+    // Reset form
     setTask({
       taskTitle: "",
       taskDescription: "",
@@ -103,7 +103,7 @@ const CreateTask = () => {
       completed: false,
       id: uuidv4(),
     });
-    setAsignTo('')
+    setAsignTo("");
   };
 
   return (
@@ -113,6 +113,7 @@ const CreateTask = () => {
           <div className="w-full gap-[10px] lg:gap-0 flex flex-col lg:flex-row items-end justify-between">
             {/* Left Column */}
             <div className="lg:w-1/3 w-full flex flex-col gap-[10px]">
+              {/* Task Title */}
               <div className="flex flex-col gap-[10px]">
                 <h1>Task Title</h1>
                 <input
@@ -127,6 +128,7 @@ const CreateTask = () => {
                 />
               </div>
 
+              {/* Task Date */}
               <div className="flex flex-col gap-[10px]">
                 <h1>Date</h1>
                 <input
@@ -140,6 +142,7 @@ const CreateTask = () => {
                 />
               </div>
 
+              {/* Assign To */}
               <div className="flex flex-col gap-[10px] relative">
                 <h1>Assign to</h1>
                 <input
@@ -149,11 +152,7 @@ const CreateTask = () => {
                   className="bg-transparent border-2 px-[15px] py-[5px] border-gray-600 placeholder:text-gray-700 dark:placeholder:text-gray-400 dark:border-[#bebebe] outline-none rounded-md capitalize"
                   value={asignTo}
                   onFocus={() => setShowSuggestions(true)}
-                  onBlur={() =>
-                    setTimeout(() => {
-                      setShowSuggestions(false);
-                    }, 300)
-                  }
+                  onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
                   onChange={(e) => setAsignTo(e.target.value)}
                 />
                 {showSuggestions && (
@@ -180,6 +179,7 @@ const CreateTask = () => {
                 )}
               </div>
 
+              {/* Category */}
               <div className="flex flex-col gap-[10px]">
                 <h1>Category</h1>
                 <input
@@ -210,6 +210,7 @@ const CreateTask = () => {
             </div>
           </div>
 
+          {/* Submit Button */}
           <button
             type="submit"
             className="bg-green-500 font-bold text-white py-[8px] rounded-md w-full mt-[20px] hover:bg-green-600 transition-all duration-200"

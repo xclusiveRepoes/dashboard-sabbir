@@ -1,24 +1,28 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 
-const UserTaskCounts = ({elem}) => {
-    const {currentUser} = useSelector(state => state.userSlice)
-    const [taskLengths, setTaskLengths] = useState({
-        pending: '',
-        completed: '',
-        failed: '',
-    })
+const UserTaskCounts = ({ elem }) => {
+  const dispatch = useDispatch();
+  const { currentUser } = useSelector((state) => state.userSlice);
+  const [taskLengths, setTaskLengths] = useState({
+    pending: "",
+    completed: "",
+    failed: "",
+  });
 
-    useEffect(() => {
-        let pending = elem.tasks.filter(task => !task.active && !task.completed && !task.failed)
-        let completed = elem.tasks.filter(task => task.completed)
-        let failed = elem.tasks.filter(task => task.failed)
-        setTaskLengths({
-            pending: pending,
-            completed: completed,
-            failed : failed
-        })
-    }, [currentUser.tasks, elem])
+  useEffect(() => {
+    let pending = elem.tasks.filter(
+      (task) => !task.active && !task.completed && !task.failed || task.active
+    );
+    let completed = elem.tasks.filter((task) => task.completed);
+    let failed = elem.tasks.filter((task) => task.failed);
+    setTaskLengths({
+      pending: pending,
+      completed: completed,
+      failed: failed,
+    });
+  }, [currentUser.tasks, elem]);
 
   return (
     <article
