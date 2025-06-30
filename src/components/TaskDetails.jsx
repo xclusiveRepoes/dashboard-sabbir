@@ -92,7 +92,7 @@ const TaskDetails = () => {
   return (
     <div className="w-full h-screen md:pb-[40px] flex flex-col items-center bg-gray-300 dark:bg-[#252525] text-gray-800 dark:text-white px-[30px] pb-[30px]">
       <Header />
-      <div className="sm:px-[30px] w-full h-[100%] lg:w-[80%] xl:w-[60%] lg:bg-[#ffffff41] rounded-md flex flex-col items-center justify-around">
+      <div className="sm:px-[30px] w-full h-[100%] lg:w-[80%] xl:w-[60%] sm:bg-[#ffffff41] rounded-md flex flex-col items-center justify-around">
         <div className="py-[20px] w-full flex flex-col gap-[40px]">
           <div className="w-full sm:flex items-end justify-between">
             <h1 className="font-bold text-[19px] mr-[10px]">
