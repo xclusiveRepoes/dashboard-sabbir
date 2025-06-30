@@ -24,7 +24,7 @@ const Tasks = ({ data }) => {
   const { currentUser } = useSelector((state) => state.userSlice);
   const { isPermit, permitText } = useSelector((state) => state.dropDownSlice);
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const [isShowDesc, setIsShowDesc] = useState(false);
   const [pendingAction, setPendingAction] = useState(null); // accept / complete / fail
@@ -126,12 +126,7 @@ const Tasks = ({ data }) => {
 
   return (
     <div className="min-h-[210px] break-inside-avoid hover:scale-105 transition-all relative w-full flex-shrink-0 bg-white/30 dark:bg-white/10 backdrop-blur-md border border-white/20 dark:border-white/10 text-black dark:text-white rounded-xl px-[30px] sm:px-[50px] py-[25px] sm:py-[35px] mb-[20px] shadow-md hover:shadow-md dark:hover:shadow-gray-800 duration-200">
-      <div
-        onClick={() => {
-          dispatch(setTaskDesc(data));
-          navigate('/task-details')
-        }}
-      >
+      <div>
         <div className="w-full flex items-center justify-between text-[12px] md:text-[14px]">
           <div className="bg-gray-500 text-white px-[10px] py-[2px] rounded-md capitalize">
             <h1>{data.category}</h1>
@@ -167,17 +162,14 @@ const Tasks = ({ data }) => {
         </h2>
 
         <h1
-          onClick={() => setIsShowDesc(!isShowDesc)}
-          className="leading-[1.2] text-[14px] md:text-[15px] font-normal mt-[10px] underline cursor-pointer text-gray-600 dark:text-gray-400 dark:hover:text-gray-200 hover:text-gray-800 transition-all duration-200 flex items-end"
+          onClick={() => {
+            dispatch(setTaskDesc(data));
+            navigate("/task-details");
+            localStorage.setItem("task-details", JSON.stringify(data));
+          }}
+          className="mt-[10px] text-[15px] text-gray-700 dark:text-gray-300 cursor-pointer underline"
         >
-          Description{" "}
-          <span
-            className={`${
-              isShowDesc ? "rotate-0" : "-rotate-90"
-            } transition-all duration-300`}
-          >
-            <TiArrowSortedDown />
-          </span>
+          Click to see details
         </h1>
 
         {isShowDesc && (

@@ -3,10 +3,27 @@
 @tailwind utilities;
 
 
-.taskList::-webkit-scrollbar{
-    display: none;
+/* 🌟 Universal Slim Rounded Transparent Scrollbar 🌟 */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.3) transparent; /* For Firefox */
 }
 
-*::-webkit-scrollbar{
-    display: none;
+/* Webkit-based browsers */
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 9999px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.5);
 }

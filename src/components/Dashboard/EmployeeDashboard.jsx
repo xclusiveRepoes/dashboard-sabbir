@@ -26,7 +26,7 @@ const EmployeeDashboard = () => {
         typeOfTask={typeOfTask}
         setTypeOfTask={setTypeOfTask}
       />
-      <TaskList typeOfTask={typeOfTask} />
+      <TaskList />
       {toShowTasks?.length === 0 && (
         <div className="text-center w-full text-[19px] text-gray-200 md:text-[21px] xl:text-[24px]">
           {toShowTasks.length === 0 && (
