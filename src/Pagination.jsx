@@ -7,11 +7,18 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { auth, db } from "./firebase-config";
 import { collection, doc, getDoc, getDocs } from "firebase/firestore";
-import { addCurrentUser, addUsers, handleToShowTasks, setLoadingOff } from "./userSlice/userSlice";
+import {
+  addCurrentUser,
+  addUsers,
+  handleToShowTasks,
+  setLoadingOff,
+} from "./userSlice/userSlice";
 import Loading from "./components/Loading";
 
 const Pagination = () => {
-  const { isLight, role, isLoading, typeOfTask } = useSelector((state) => state.userSlice);
+  const { isLight, role, isLoading, typeOfTask } = useSelector(
+    (state) => state.userSlice
+  );
 
   const { tasks } = useSelector((state) => state.userSlice.currentUser);
 
@@ -72,24 +79,26 @@ const Pagination = () => {
   }, [role]);
 
   const getTasksByType = () => {
-    switch (typeOfTask) {
-      case "Failed task":
-        return tasks.filter((task) => task.failed);
-      case "Active Task":
-        return tasks.filter((task) => task.active);
-      case "Completed task":
-        return tasks.filter((task) => task.completed);
-      case "New task":
-        return tasks.filter(
-          (task) => !task.failed && !task.completed && !task.active
-        );
-      default:
-        return [];
+    if (typeOfTask) {
+      switch (typeOfTask) {
+        case "Failed task":
+          return tasks?.filter((task) => task?.failed);
+        case "Active Task":
+          return tasks?.filter((task) => task?.active);
+        case "Completed task":
+          return tasks?.filter((task) => task?.completed);
+        case "New task":
+          return tasks?.filter(
+            (task) => !task?.failed && !task?.completed && !task?.active
+          );
+        default:
+          return [];
+      }
     }
   };
 
-    useEffect(() => {
-    const filtered = getTasksByType()
+  useEffect(() => {
+    const filtered = getTasksByType();
     dispatch(handleToShowTasks(filtered));
   }, [tasks, typeOfTask]);
 
